@@ -1,0 +1,10 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('/Users/didi/AndroidStudioProjects/GradleJavaDemo/annotation/build/libs/annotation.jar')
+    implementation files('/Users/didi/AndroidStudioProjects/GradleJavaDemo/processor/build/libs/processor.jar')
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
