@@ -1,0 +1,38 @@
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+
+            groupId 'com.fs.plugin'
+            artifactId 'cusPlugin'
+            version '1.0.2'
+
+            from components.java
+
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url uri('/Users/didi/Public/mavenLocal')
+        }
+    }
+}

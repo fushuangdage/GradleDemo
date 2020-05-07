@@ -1,6 +1,13 @@
+import com.gradle.plugin.MyBuildScripPlugin
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.fushuang'
+apply plugin: BuildScripPlugin
+apply plugin: MyBuildScripPlugin
+apply plugin: 'com.fs.plugin.MyBuildScripPluginTwo'
+
+
+group = 'com.github.fushuang'
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -20,11 +27,23 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-
     implementation project(':annotation')
     annotationProcessor project(':processor')
+}
+task("myTestPrint", { println("myTestPrint log") })
 
+class BuildScripPlugin implements Plugin<Project> {
+
+    @Override
+    void apply(Project target) {
+        target.task "hello" ,{
+            println("BuildScripPlugin log")
+            doLast {
+                println("BuildScripPlugin doLast")
+            }
+        }
+    }
 }
