@@ -33,13 +33,17 @@ dependencies {
     implementation project(':annotation')
     annotationProcessor project(':processor')
 }
-task("myTestPrint", { println("myTestPrint log") })
+task("myTestPrint", {
+    println("myTestPrint log")
+    doLast { println("myTestPrint doLast") }
+    doFirst { println("myTestPrint doFirst") }
+}, dependsOn: hello)
 
 class BuildScripPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project target) {
-        target.task "hello" ,{
+        target.task "hello", {
             println("BuildScripPlugin log")
             doLast {
                 println("BuildScripPlugin doLast")
