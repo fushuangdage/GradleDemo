@@ -5,7 +5,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: BuildScripPlugin
 apply plugin: MyBuildScripPlugin
 apply plugin: 'com.fs.plugin.MyBuildScripPluginTwo'
-
+apply plugin: 'com.fs.plugin.TransformPlugin'
 
 group = 'com.github.fushuang'
 android {

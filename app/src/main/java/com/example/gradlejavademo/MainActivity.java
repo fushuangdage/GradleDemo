@@ -3,6 +3,8 @@ package com.example.gradlejavademo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.annotation.InjectFactory;
 import com.example.gradlejavademo.shape.IShape;
@@ -17,5 +19,11 @@ public class MainActivity extends AppCompatActivity {
         IShape circleShape = new IShapeFactory().create("CircleShape");
 
         circleShape.onDraw();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("fs666", "onResume: ");
     }
 }

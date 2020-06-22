@@ -1,10 +1,37 @@
 apply plugin: 'groovy'
-
+apply plugin: 'maven-publish'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.tools.build:gradle:3.6.3'
+    implementation 'org.javassist:javassist:3.18.2-GA'
+    implementation 'commons-io:commons-io:2.6'
+
     implementation gradleApi()//gradle sdk
     implementation localGroovy()//groovy sdk
 }
 
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+
+            groupId 'com.fs.plugin'
+            artifactId 'transformPlugin'
+            version '1.0.1'
+
+            from components.java
+
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url uri('/Users/didi/Public/mavenLocal')
+        }
+    }
+}
 sourceCompatibility = "7"
 targetCompatibility = "7"
