@@ -8,7 +8,11 @@ apply plugin: 'com.fs.plugin.MyBuildScripPluginTwo'
 apply plugin: 'com.fs.plugin.TransformPlugin'
 
 group = 'com.github.fushuang'
+
+println(" ${project.getName()} parent is ${getParent().name}")
+
 android {
+    println("---- android block -----")
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.gavin.apttest"
@@ -31,6 +35,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation project(':annotation')
+    println(" annotationProcessor processor")
     annotationProcessor project(':processor')
 }
 task("myTestPrint", {
@@ -46,8 +51,30 @@ class BuildScripPlugin implements Plugin<Project> {
         target.task "hello", {
             println("BuildScripPlugin log")
             doLast {
-                println("BuildScripPlugin doLast")
+                println("hello : BuildScripPlugin doLast : step  1")
+            }
+            doLast {
+                println("hello : BuildScripPlugin doLast : step  2")
+            }
+
+            doLast {
+                File file = outputs.getFiles().getSingleFile()
+                println("hello : file ${file.absolutePath} / $file.name")
             }
         }
+    }
+}
+
+def startBuildTime, endBuildTime
+afterEvaluate {
+    def myTask = tasks.getByName('hello')
+    myTask.doFirst {
+        startBuildTime = System.currentTimeMillis()
+        println(" doFirst run on time $startBuildTime")
+    }
+    myTask.doLast {
+        endBuildTime = System.currentTimeMillis()
+        println(" doLast run on time $endBuildTime")
+        println(" Current project execute time is ${endBuildTime - startBuildTime}")
     }
 }

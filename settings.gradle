@@ -5,3 +5,63 @@ include ':processor'
 include ':libcom'
 include ':gradlePublish'
 include ':frooter'
+
+gradle.getTaskGraph().addTaskExecutionGraphListener(new
+        TaskExecutionGraphListener() {
+            @Override
+            void graphPopulated(TaskExecutionGraph graph) {
+                def taskstemp = graph.allTasks
+
+                println("  graphPopulated " + taskstemp.size())
+            }
+        })
+
+gradle.getTaskGraph().addTaskExecutionListener(new TaskExecutionListener() {
+    @Override
+    void beforeExecute(Task task) {
+        println '--- beforeExecute --- ' +task.name
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState state) {
+        println '--- afterExecute --- ' +task.name + ' --- state ---' + state
+    }
+})
+gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+    @Override
+    void beforeEvaluate(Project project) {
+        println '--- beforeEvaluate --- ' +project.name
+    }
+
+    @Override
+    void afterEvaluate(Project project, ProjectState state) {
+        println '--- afterEvaluate --- '+ project.name  +" --- state --- "+ state
+    }
+})
+gradle.addBuildListener(new BuildListener() {
+    @Override
+    void buildStarted(Gradle gradle) {
+        println '开始构建'
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+        println 'settings 评估完成（settings.gradle 中代码执行完毕）'
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+        println(" projectsLoaded 初始化结束，可访问根项目  "+gradle.rootProject)
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        println '所有项目评估完成（配置阶段结束）'+gradle.rootProject
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println '构建结束 '
+    }
+})
+
