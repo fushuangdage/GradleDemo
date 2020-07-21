@@ -1,0 +1,11 @@
+1. 配置AS  debug configuration
+2.执行下面开启
+./gradlew :app:assembleDebug  -Dorg.gradle.debug=true  --no-daemon --stacktrace
+
+
+ // 运行gradlew -P 可以设置全局的参数，优先级最高，高于gradle.properties 中的默认值
+ ./gradlew -PUSER_NAME='fs888'
+
+
+ lsof -i:5005
+

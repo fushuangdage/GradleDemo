@@ -31,7 +31,7 @@ import javassist.NotFoundException;
  * History:
  * <author> <time> <version> <desc>
  */
-class ASMTransform extends Transform {
+class JavassistTransform extends Transform {
 
     Project project;
 
@@ -39,14 +39,14 @@ class ASMTransform extends Transform {
     private final static ClassPool pool = ClassPool.getDefault();
 
 
-    ASMTransform(Project project) {
+    JavassistTransform(Project project) {
         this.project = project;
     }
-    public static final String TAG = "fs666888 Transform   ";
+    public static final String TAG = "fs666 JavassistTransform   ";
 
     @Override
     String getName() {
-        return "ASMTransform";
+        return "JavassitTransform";
     }
 
     @Override
@@ -58,17 +58,24 @@ class ASMTransform extends Transform {
 
         for (TransformInput input : inputs) {
             for (JarInput jarInput : input.getJarInputs()) {
-                System.out.println(TAG + " jarInput  : " + jarInput.getName() + "abs path : " + jarInput.getFile().getAbsolutePath());
                 File dest = transformInvocation.outputProvider.getContentLocation(jarInput.name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+
+                System.out.println(TAG + String.format("jarInput >>> originPath : %s , originName : %s , outputPath : %s , outPutName %s"
+                        ,jarInput.getFile().getAbsolutePath(),jarInput.getName(),dest.getAbsolutePath(),dest.getName()))
+
+
                 FileUtils.copyFile(jarInput.getFile(), dest)
 
             }
             for (DirectoryInput directoryInput : input.getDirectoryInputs()) {
-                System.out.println(TAG + " directoryInput  : " + directoryInput.getName() + "abs path : " + directoryInput.getFile().getAbsolutePath());
-                transformCode(directoryInput.getFile().getAbsolutePath(), project);
-
 
                 File dest = transformInvocation.outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
+
+                System.out.println(TAG + String.format("DirectoryInputs >>> originPath : %s , originName : %s , outputPath : %s , outPutName %s"
+                        ,directoryInput.getFile().getAbsolutePath(),directoryInput.getName(),dest.getAbsolutePath(),dest.getName()))
+
+                transformCode(directoryInput.getFile().getAbsolutePath(), project)
+
                 FileUtils.copyDirectory(directoryInput.getFile(), dest)
             }
         }
@@ -120,7 +127,7 @@ class ASMTransform extends Transform {
 
     @Override
     public Set<? super QualifiedContent.Scope> getScopes() {
-        return TransformManager.PROJECT_ONLY;
+        return TransformManager.SCOPE_FULL_PROJECT;
     }
 
     @Override

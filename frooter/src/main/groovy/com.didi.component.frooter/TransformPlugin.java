@@ -15,7 +15,8 @@ public class TransformPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         AppExtension appExtension = project.getExtensions().findByType(AppExtension.class);
-        appExtension.registerTransform(new ASMTransform(project));
+        appExtension.registerTransform(new JavassistTransform(project));
+        appExtension.registerTransform(new AsmTransform(project));
 
     }
 }

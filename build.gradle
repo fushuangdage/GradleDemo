@@ -1,10 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven {
             // change to point to your repo, e.g. http://my.org/repo
             url uri('/Users/didi/Public/mavenLocal')
@@ -13,12 +14,12 @@ buildscript {
     }
     dependencies {
 
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' // Add this line
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'com.fs.plugin:cusPlugin:1.0.2'
-        classpath 'com.fs.plugin:transformPlugin:1.0.1'
+        classpath 'com.fs.plugin:transformPlugin:1.0.2'
     }
 }
 
@@ -26,11 +27,12 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven {
             // change to point to your repo, e.g. http://my.org/repo
             url uri('/Users/didi/Public/mavenLocal')
         }
-        
+
     }
 }
 

@@ -16,11 +16,20 @@ import org.gradle.api.Task;
 public class MyBuildScripPluginSingle2 implements Plugin<Project> {
 
     @Override
-    public void apply(Project project) {
-        project.task("myPluginSingle", new Action<Task>() {
+    public void apply(final Project project) {
+        final CustomParam customArgs = project.getExtensions().create("customArgs", CustomParam.class);
+
+        Task task = project.task("myPluginSingle", new Action<Task>() {
             @Override
             public void execute(Task task) {
-                System.out.println(">>>>>>>>>> myPluginSingle222 log tag <<<<<<<<<<<");
+
+                System.out.println(">>>>>>>>>> myPluginSingle222 log tag <<<<<<<<<<< args : " + customArgs.extensionArgs);
+                task.doLast(new Action<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        System.out.println(">>>>>>>>>> myPluginSingle222 doLast  args : " + customArgs.extensionArgs);
+                    }
+                });
             }
         });
     }

@@ -1,11 +1,13 @@
 import com.gradle.plugin.MyBuildScripPlugin
-
+apply from:'delegate.gradle'
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: BuildScripPlugin
 apply plugin: MyBuildScripPlugin
 apply plugin: 'com.fs.plugin.MyBuildScripPluginTwo'
 apply plugin: 'com.fs.plugin.TransformPlugin'
+
+customArgs.extensionArgs = "外部修改参数"
 
 group = 'com.github.fushuang'
 
@@ -42,7 +44,7 @@ task("myTestPrint", {
     println("myTestPrint log")
     doLast { println("myTestPrint doLast") }
     doFirst { println("myTestPrint doFirst") }
-}, dependsOn: hello)
+})
 
 class BuildScripPlugin implements Plugin<Project> {
 
@@ -58,8 +60,9 @@ class BuildScripPlugin implements Plugin<Project> {
             }
 
             doLast {
-                File file = outputs.getFiles().getSingleFile()
-                println("hello : file ${file.absolutePath} / $file.name")
+                outputs.getFiles().forEach { file ->
+                    println("hello : file ${file.absolutePath} / $file.name")
+                }
             }
         }
     }
@@ -77,4 +80,5 @@ afterEvaluate {
         println(" doLast run on time $endBuildTime")
         println(" Current project execute time is ${endBuildTime - startBuildTime}")
     }
+    myTask.dependsOn("myTestPrint", "myBuildTask")
 }

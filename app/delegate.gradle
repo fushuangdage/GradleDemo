@@ -1,0 +1,41 @@
+import com.gradle.plugin.BuildSrcTask
+
+println("run delegate.gradle")
+
+class Child {
+    String name
+}
+
+class Parent {
+    String name
+    Child child = new Child()
+
+    void config(Closure c) {
+        c.delegate = child
+        c.setResolveStrategy Closure.OWNER_FIRST
+        c()
+    }
+}
+
+
+def parent = new Parent()
+parent.config {
+    name = " my name"
+}
+println(parent.name)
+println(parent.child.name)
+
+def USER_NAME = project.property("USER_NAME")
+println("USER_NAME " + USER_NAME)
+
+
+task helloworld(type: BuildSrcTask) {
+
+    println(" BuildSrcTask config")
+    doFirst {
+        println(" BuildSrcTask doFirst")
+    }
+    doLast {
+        println(" BuildSrcTask doLast")
+    }
+}

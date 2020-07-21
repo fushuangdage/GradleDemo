@@ -13,7 +13,7 @@ import org.gradle.api.Task;
  * History:
  * <author> <time> <version> <desc>
  */
-public class MyBuildScripPlugin  implements Plugin<Project> {
+public class MyBuildScripPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {

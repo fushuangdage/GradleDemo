@@ -6,6 +6,9 @@ dependencies {
     implementation 'org.javassist:javassist:3.18.2-GA'
     implementation 'commons-io:commons-io:2.6'
 
+    implementation 'org.ow2.asm:asm:5.0.3'
+    implementation 'org.ow2.asm:asm-commons:5.0.3'
+
     implementation gradleApi()//gradle sdk
     implementation localGroovy()//groovy sdk
 }
@@ -17,7 +20,7 @@ publishing {
 
             groupId 'com.fs.plugin'
             artifactId 'transformPlugin'
-            version '1.0.1'
+            version '1.0.2'
 
             from components.java
 
