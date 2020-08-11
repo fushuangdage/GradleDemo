@@ -22,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("fs666", "onStop: ");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         Log.d("fs666", "onResume: ");

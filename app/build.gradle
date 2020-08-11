@@ -6,7 +6,7 @@ apply plugin: BuildScripPlugin
 apply plugin: MyBuildScripPlugin
 apply plugin: 'com.fs.plugin.MyBuildScripPluginTwo'
 apply plugin: 'com.fs.plugin.TransformPlugin'
-
+apply plugin: 'com.fs.plugin.SpiPlugin'
 customArgs.extensionArgs = "外部修改参数"
 
 group = 'com.github.fushuang'

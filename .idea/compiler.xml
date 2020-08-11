@@ -26,6 +26,7 @@
       <module name="gradlePublish" target="1.7" />
       <module name="libcom" target="1.7" />
       <module name="processor" target="1.7" />
+      <module name="spi" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

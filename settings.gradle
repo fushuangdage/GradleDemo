@@ -1,3 +1,4 @@
+include ':spi'
 rootProject.name='GradleJavaDemo'
 include ':app'
 include ':annotation'
@@ -41,27 +42,27 @@ gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
 gradle.addBuildListener(new BuildListener() {
     @Override
     void buildStarted(Gradle gradle) {
-        println '开始构建'
+        println 'BuildListener : 开始构建'
     }
 
     @Override
     void settingsEvaluated(Settings settings) {
-        println 'settings 评估完成（settings.gradle 中代码执行完毕）'
+        println 'BuildListener : settings 评估完成（settings.gradle 中代码执行完毕）'
     }
 
     @Override
     void projectsLoaded(Gradle gradle) {
-        println(" projectsLoaded 初始化结束，可访问根项目  "+gradle.rootProject)
+        println("BuildListener :  projectsLoaded 初始化结束，可访问根项目  "+gradle.rootProject)
     }
 
     @Override
     void projectsEvaluated(Gradle gradle) {
-        println '所有项目评估完成（配置阶段结束）'+gradle.rootProject
+        println 'BuildListener : 所有项目评估完成（配置阶段结束）'+gradle.rootProject
     }
 
     @Override
     void buildFinished(BuildResult result) {
-        println '构建结束 '
+        println 'BuildListener : 构建结束 '
     }
 })
 

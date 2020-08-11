@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/gradlePublish" />
             <option value="$PROJECT_DIR$/libcom" />
             <option value="$PROJECT_DIR$/processor" />
+            <option value="$PROJECT_DIR$/spi" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
